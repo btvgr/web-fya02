@@ -137,6 +137,7 @@ body {
   border-radius: var(--radio);
   background-color: var(--color-blanco);
   cursor: pointer;
+  transition: border-color 180ms ease, background-color 180ms ease;
 }
 
 .menu-toggle span {
@@ -145,6 +146,8 @@ body {
   height: 2px;
   margin: 4px 0;
   background-color: var(--color-rojo);
+  transform-origin: center;
+  transition: transform 180ms ease, opacity 180ms ease;
 }
 
 .hero {
@@ -1047,6 +1050,7 @@ body {
 
 @media (max-width: 760px) {
   .main-nav {
+    position: relative;
     padding: 0 1.25rem;
   }
 
@@ -1054,8 +1058,73 @@ body {
     display: block;
   }
 
+  .menu-toggle.is-open {
+    border-color: var(--color-rojo-suave);
+    background-color: var(--color-rojo-suave);
+  }
+
+  .menu-toggle.is-open span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .menu-toggle.is-open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menu-toggle.is-open span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
   .nav-links {
-    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    display: flex;
+    visibility: hidden;
+    flex-direction: column;
+    gap: 0;
+    max-height: 0;
+    padding: 0 1.25rem;
+    overflow: hidden;
+    border-top: 1px solid transparent;
+    background-color: var(--color-blanco);
+    opacity: 0;
+    pointer-events: none;
+    box-shadow: 0 14px 20px rgb(28 28 28 / 8%);
+    transition: max-height 240ms ease, padding 240ms ease, opacity 180ms ease, visibility 240ms step-end, border-color 180ms ease;
+  }
+
+  .nav-links.is-open {
+    visibility: visible;
+    max-height: 410px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.75rem;
+    border-color: rgb(28 28 28 / 7%);
+    opacity: 1;
+    pointer-events: auto;
+    transition: max-height 240ms ease, padding 240ms ease, opacity 180ms ease, visibility 0ms step-start, border-color 180ms ease;
+  }
+
+  .nav-links li {
+    width: 100%;
+  }
+
+  .nav-links a {
+    display: block;
+    min-height: 46px;
+    padding: 0.8rem 0.15rem;
+    font-size: 0.74rem;
+  }
+
+  .nav-links a::after {
+    bottom: 0.45rem;
+  }
+
+  .nav-links .nav-suggestions {
+    margin-top: 0.35rem;
+    padding: 0.75rem 0.9rem;
+    text-align: center;
   }
 
   .hero {
